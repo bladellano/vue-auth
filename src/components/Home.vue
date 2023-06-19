@@ -1,16 +1,15 @@
 <template>
-  <h3>Home</h3>
+  <div>
+    <h3 v-if="user">Hi, {{ user.name }} </h3>
+    <h3 v-if="!user">You are not logged in!</h3>
+  </div>
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
   name: "Home",
-  async created() {
-    const response = await axios.post("auth/me");
-    console.log("response", response);
-  },
+  props: ['user'],
 };
 </script>
 

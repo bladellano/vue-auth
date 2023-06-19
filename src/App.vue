@@ -1,11 +1,11 @@
 <template>
   <div id="app">
 
-    <Nav />
+    <Nav :user="user" />
 
     <div class="auth-wrapper">
       <div class="auth-inner">
-        <router-view />
+        <router-view :user="user" />
       </div>
     </div>
   </div>
@@ -13,12 +13,24 @@
 </template>
 
 <script>
+
+import axios from "axios";
+
 import Nav from "./components/Nav.vue";
 
 export default {
   name: "App",
   components: {
     Nav,
+  },
+  data(){
+    return {
+      user:null
+    }
+  },
+  async created() {
+    const response = await axios.post("auth/me");
+    this.user = response.data.hasOwnProperty('id') ? response.data : null;
   },
 };
 </script>
