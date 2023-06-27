@@ -74,12 +74,14 @@ export default {
   methods: {
     async handlerSubmit() {
 
-      await axios.post("users", {
+       await axios.post("users", {
         name: this.name,
         last_name: this.last_name,
         email: this.email,
         password: this.password,
         password_confirm: this.password_confirm,
+      }).catch((error)=>{
+         alert(error.response.data.message)
       });
 
       this.$router.push('/login')

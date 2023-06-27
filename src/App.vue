@@ -1,11 +1,11 @@
 <template>
   <div id="app">
 
-    <Nav :user="user" />
+    <Nav/>
 
     <div class="auth-wrapper">
       <div class="auth-inner">
-        <router-view :user="user" />
+        <router-view/>
       </div>
     </div>
   </div>
@@ -29,8 +29,11 @@ export default {
     }
   },
   async created() {
+
     const response = await axios.post("auth/me");
-    this.user = response.data.hasOwnProperty('id') ? response.data : null;
+
+    this.$store.dispatch("user", response.data.hasOwnProperty('id') ? response.data : null);
+
   },
 };
 </script>
